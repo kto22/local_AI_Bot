@@ -64,23 +64,22 @@ async def compress_history(table_name, client):
     for i in range(1, len(result), 1):
         row = result[i]
         if str(row[0]) == 'assistant':
-            old_line = str(row[1])
-        prompt = [
-            {
-                "role": "system",
-                "content": "You have to shorten the text you receive from user."
-            },
-            {
-                "role": "user",
-                "content": old_line.replace('"', '').replace("'", "")
-            }
-        ]
-        completion2 = client.chat.completions.create(
-            model="local-model",
-            messages=prompt,
-            temperature=0.7,
-        )
-        new_line = completion2.choices[0].message.content.replace('"', '').replace("'", "")
-        print(new_line)
-        cursor2.execute(f'UPDATE {table_name} SET content = ? WHERE content = ?', (new_line, old_line))
-        connection2.commit()
+            prompt = [
+                {
+                    "role": "system",
+                    "content": "You have to shorten the text you receive from user."
+                },
+                {
+                    "role": "user",
+                    "content": str(row[1]).replace('"', '').replace("'", "")
+                }
+            ]
+            completion2 = client.chat.completions.create(
+                model="local-model",
+                messages=prompt,
+                temperature=0.7,
+            )
+            new_line = completion2.choices[0].message.content.replace('"', '').replace("'", "")
+            print(new_line)
+            cursor2.execute(f'UPDATE {table_name} SET content = ? WHERE content = ?', (new_line, str(row[1])))
+            connection2.commit()
