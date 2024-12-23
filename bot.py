@@ -2,6 +2,11 @@ import asyncio
 import logging
 import sys
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
+BOT_TOKEN = os.getenv('BOT_TOKEN')
+
 
 from openai import OpenAI
 from aiogram import Bot, Dispatcher
@@ -23,7 +28,6 @@ async def main() -> None:
 
 
 if __name__ == "__main__":
-    BOT_TOKEN = "6296834058:AAFRwa1MzEitcMDQB1cxgJZJ9lbjLjtd5xQ"  # получаем токен бота из переменной окружения
     if BOT_TOKEN is None:
         raise ValueError("BOT_TOKEN is not set")
 

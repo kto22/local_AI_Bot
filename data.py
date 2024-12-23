@@ -1,10 +1,12 @@
 import sqlite3
 
+
 connection = sqlite3.connect('database.db')
 cursor = connection.cursor()
 connection2 = sqlite3.connect('database.db')
 print("connected to database successfully")
 cursor2 = connection2.cursor()
+
 
 async def insert_history(table_name, role, content):
     cursor.execute(f'INSERT INTO {table_name} (role, content) VALUES (?,?)', (role, content))
