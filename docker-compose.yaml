@@ -1,0 +1,9 @@
+services:
+  service:
+    image: local_ai_bot:latest
+    environment:
+      BOT_TOKEN: 7610507206:AAGV_8zgQ6dJUx-wkRabW_erBE1zpPnE60k
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "host.docker.internal:127.0.0.1"
+      - "host.docker.internal:172.0.18.1"
