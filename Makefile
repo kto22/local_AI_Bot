@@ -1,5 +1,5 @@
 run:
-	docker run -it -d --restart=unless-stopped --name easy_refer ChertikBot
+	docker run -it -d --restart=unless-stopped --name easy_refer local_AI_Bot
 stop:
 	docker stop easy_refer
 attach:
